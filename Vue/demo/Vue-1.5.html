@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>组件</title>
+		<script type="text/javascript" src="./Vue-2.6.11.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<login></login>
+			<!-- <mycom2></mycom2>
+			<mycom3></mycom3> -->
+		</div>
+		<template id="tmp1">
+			<!-- //在被控制的#app外面，使用template元素，dinginess组件的html模板结构 -->
+			<div id="">
+				<h1>这是通过template元素，在外部定义的组件结构，有代码的提示和高亮</h1>
+				<h4>好用，不错！</h4>
+			</div>
+		</template>
+		<script type="text/javascript">
+			//定义全局组件
+			/* 1.1 使用vue.extend 来创建全局的vue组件
+		var com1=Vue.extend({//返回一个组件模板对象
+			template:'<h3>这个vue。extend创建的组件</h3>' //通过template 属性，指定了组件要展现的html结构
+		})
+		1.2 使用vue.component('组件的名称'创建出来的组件模板对象)
+		Vue.component('myCom1',com1)
+		Vue.component('mycom1',com1)
+		如果使用Vue.component 定义全局组件的时候，组件名称使用了 驼峰命名 则在引用组件的时候，需要把 把鞋的驼峰改为小写字母 同时，两个单词之间使用 - 连接
+		例如：  myCom1  => <my-com1></my-com1>
+		如果不适用驼峰 则直接使用组件名称 例如：  mycom1 => <mycom1></mycom1> */
+
+			/* 2.1 不使用中间变量
+			Vue.component('mycom1', Vue.extend({
+				template: '<h3>这个vue。extend创建的组件</h3>'
+			}))
+			3 第二个参数这直接使用一个对象
+			Vue.component('mycom2',{
+				// 不论是那种方式创建出来的组件，组件的template 属性指向的模板内容，必须有且只能有唯一一个根元素
+				template:'<h3>这个vue.extend创建的组件</h3>'
+			})
+			//4 抽离模板结构
+			
+			Vue.component('mycom3',{
+				template:'#tmp1'
+			}) */
+
+			var vm = new Vue({
+				el: "#app",
+				//数据
+				data: {},
+				//方法
+				methods: {},
+				//私有过滤器
+				filters: {},
+				//自定义指令
+				directives: {},
+				//自定义组件
+				components: {
+					login: {
+						template: '#tmp1'
+					}
+				},
+				//生命周期函数
+				beforeCreate() {},
+				created() {},
+				beforeMount() {},
+				mounted() {},
+				beforeUpdate() {},
+				updated() {},
+				beforeDestroy() {},
+				destroyed() {},
+			})
+		</script>
+	</body>
+</html>

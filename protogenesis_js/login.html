@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人博客-登录</title>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/login.css">
+    <script src="./js/Basic.js"></script>
+    <script src="./js/login.js"></script>
+</head>
+
+<body>
+    <div id="login">
+        <div class="login-box">
+            <div class="login-top">
+                <p><span>登录 | LOGIN</span></p>
+            </div>
+            <div class="login-content">
+                <form action="./php/login.php" id="login-form"method="post" name="login">
+                    <div class="input-group">
+                        <label for="uname">邮 箱<span id="tips"><i></i></span></label>
+                        <input type="email" placeholder="请使用常用邮箱" name="email" class="email" id="email">
+                        
+                    </div>
+                    <div class="input-group">
+                        <label for="pwd">密 码<span id="tip"><i></i></span></label>
+                        <input type="password" placeholder="6-16字符 包含数字、字母、特殊符号" name="pwd" class="pwd" id="pwd">
+                        
+                    </div>
+                    <div class="botton-group">
+                        <button name="login-btn" id="login-btn" class="login-btn">登录|login</button>
+                        <input text="button" name="register-btn" id="register-btn" class="register-btn" value="注册|register"></input>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

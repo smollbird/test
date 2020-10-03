@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>案例 名称案例</title>
+		<script type="text/javascript" src="./Vue-2.6.11.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 分析
+			1、监听文本框数据的改变，这样才能知道什么时候去拼接一个fullname
+			2、如何监听到文本框的数据改变
+		 -->
+
+			<!-- <input type="text" v-model="firstname" @keyup="getFullname" />+
+			<input type="text" v-model="lastname" @keyup="getFullname" />=
+			<input type="text" v-model="fullname" /> -->
+
+
+			<input type="text" v-model="firstname" />+
+			<input type="text" v-model="lastname" />=
+			<input type="text" v-model="fullname" />
+		</div>
+		<script type="text/javascript">
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					firstname: '',
+					lastname: '',
+					fullname: ''
+				},
+				methods: {
+					/* 第一版名称案例
+					getFullname() {
+						return this.fullname = this.firstname + '-' + this.lastname
+					} */
+				},
+				watch: { //使用这个属性，可以监听data中数据的改变，然后触发watch中的处理函数
+					//第二版
+					'firstname': function(newVal, oldVal) {
+						// console.log('监听到了数据改变')
+						// this.fullname = this.firstname + '-' + this.lastname
+						this.fullname = newVal + '-' + this.lastname
+					},
+					'lastname': function(newVal) {
+						this.fullname = this.firstname + '-' + newVal
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

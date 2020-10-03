@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<script type="text/javascript" src="./ajax.js"></script>
+</head>
+<body>
+	<button type="button">按钮</button>
+	<br><br>
+	<div id="txt"></div>
+	<script type="text/javascript">
+		window.onload=function(){
+			ajax({
+				url:"https://littlebied.github.io/littlebied/api/demo.json",
+				data:{},
+				timeout:1000*60*10,
+				success:function(data){
+					var output = ""
+					for (var i = 0; i < data.length; i++) {
+						output +=
+						`
+							<ul>
+								<li>${data[i].id}</li>
+								<li>${data[i].name}</li>
+							</ul>
+						`
+					}
+					document.getElementById("txt").innerHTML = output
+				}
+			})
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>父组件向子组件传值（data中的数据、methods中的方法）</title>
+		<script type="text/javascript" src="./Vue-2.6.11.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 父组件 可在引用子组件的时候，通过属性绑定（v-bind：）的形式 
+			把需要传递给子组件的数据，以属性绑定的形式，传递到子组件内部，供子组件使用 -->
+			<com1 v-bind:parentmsg="msg"></com1>
+			<!-- 父组件向子组件床单方法，使用的是时间半丁机制，v-on 当我们自定义了一个事件属性之后 
+			 那么子组件就能够，通过某些方法，来调用传递进去的这个方法了-->
+			<com2 @func="show"></com2>
+			<h3>{{ datamsgFormSon }}</h3>
+		</div>
+
+
+		<template id="tmp1">
+			<div>
+				<h1>这是子组件</h1>
+				<input type="button" name="" id="" value="子组件的按钮,点击触发父组件中的show方法" @click="myclick" />
+			</div>
+		</template>
+		<script type="text/javascript">
+			//定义一个字面量类型的组件模板对象
+			var com2 = {
+				template: '#tmp1', //通过id，这个id指定了模板html结构
+				data() {
+					return {
+						sonMsg: '这是子组件的数据'
+					}
+				},
+				methods: {
+					myclick() {
+						//当点击子组件的的按钮的时候，如何拿到父组件传递过来的func方法，并调用这个方法
+						//emit 英文原意：触发，调用的意思
+						//通过this.$emit()方法来调用父组件的方法
+						//第一个参数：事件绑定的名称
+						//此后的参数（第二个、第三个）都可以用来传递参数
+						this.$emit('func', this.sonMsg)
+					}
+				}
+			}
+
+
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					msg: '123-父组件中的数据',
+					datamsgFormSon: null
+				},
+				methods: {
+					show(data) {
+						// console.log('调用了父组件身上的方法---' + data)
+						this.datamsgFormSon = data
+					}
+				},
+				components: {
+					//结论：经过演示 发现，子组件中，默认无法访问到父组件中data上的书和methods中的方法
+					com1: {
+						data() { //子组件中的data数据，并不是通过父组件传递过来的，而是子组件自身私有的，可读可写的数据
+							// 比如ajax，请求回来的数据，都放在data中
+							return {
+								title: '324'
+							}
+						},
+						template: '<h1>这是子组件----{{ parentmsg }}</h1>',
+						//把父组件传递过来的parentmsg属性，先在props数组中，定义一下，这样，才能使用
+						//组件中的所有props 中的数据，都是通过父组件传递给子组件的
+						props: ['parentmsg'], //props中的数据是只读的，无法重新赋值
+						filters: {} //也可以有vue实例中的方法。。。
+					},
+					com2
+				}
+			})
+		</script>
+	</body>
+</html>

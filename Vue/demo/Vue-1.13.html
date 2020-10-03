@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>路由 传参</title>
+		<script type="text/javascript" src="./Vue-2.6.11.js"></script>
+		<script src="Vue-router-3.3.2.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="app">
+			
+			<router-link to="/login/12/ls">登录</router-link>
+			<router-link to="/register">注册</router-link>
+			<router-view></router-view>
+		</div>
+		<script type="text/javascript">
+			var login = {//使用params方式传参
+				template: '<h2>login 组件--{{$route.params.id}}--{{$route.params.name}}</h2>',
+			}
+			var register = {
+				template: '<h2>register 组件</h2>'
+			}
+			var router = new VueRouter({
+				routes: [{
+						path: '/login/:id/:name',
+						component: login
+					},
+					{
+						path: '/register',
+						component: register
+					}
+				]
+			})
+			var vm = new Vue({
+				el: "#app",
+				data: {
+
+				},
+				methods: {
+
+				},
+				router
+			})
+		</script>
+	</body>
+</html>

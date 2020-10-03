@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>使用ref 获取dom元素和组件</title>
+		<script type="text/javascript" src="./Vue-2.6.11.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<input type="button" value="获取元素" @click="getElemnet" />
+			<h3 ref="myh3">tiaadfsdf</h3>
+			<login ref="login"></login>
+		</div>
+		<script type="text/javascript">
+			var login = {
+				template: '<h1>login</h1>',
+				data() {
+					return {
+						msg: 'son msg'
+					}
+				},
+				methods:{
+					show(){
+						console.log('子组件')
+					}
+				}
+			}
+			var vm = new Vue({
+				el: "#app",
+				data: {
+
+				},
+				methods: {
+					getElemnet() { //refs [reference] 值类型，引用类型
+						// console.log(this.$refs.myh3.innerText)
+						console.log(this.$refs.login.show())
+					}
+				},
+				components: {
+					login
+				}
+			})
+		</script>
+	</body>
+</html>

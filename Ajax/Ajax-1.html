@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>ajax-1 请求纯文本数据</title>
+	</head>
+	<body>
+		<button id="btn" type="button">按钮</button>
+		<br><br>
+		<div id="txt"></div>
+		<script type="text/javascript">
+			window.onload = function() {
+				document.getElementById("btn").addEventListener("click", function() {
+					var xhr = new XMLHttpRequest();
+					xhr.open("get","demo1.txt", true);
+					//setRequestHeader用于post请求修改发送请求头部
+					// xhr.setRequestHeader("content-type","application/x-www-form-urlencoded");
+					xhr.send(null);
+					xhr.onreadystatechange = function() {
+						if (xhr.status == 200 && xhr.readyState == 4) {
+							document.getElementById("txt").innerHTML=xhr.responseText;
+						}
+					}
+				})
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>组件中的data和methods</title>
+		<script type="text/javascript" src="./Vue-2.6.11.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<mycom1></mycom1>
+			<count></count>
+			<count></count>
+			<count></count>
+		</div>
+		<template id="tmp1">
+			<div id="">
+				<input type="button" name="" id="" value="+1" @click="increment" />
+				<h3>{{ count }}</h3>
+			</div>
+		</template>
+		<script type="text/javascript">
+			var dataObj = {
+				count: 0
+			}
+			// 计数器，点击按钮，让data中的count加1
+			Vue.component('count', {
+				template: '#tmp1',
+				data: function() {
+					// return dataObj
+					return {
+						count:0
+					}
+				},
+				methods: {
+					increment() {
+						this.count++
+					}
+				}
+			})
+
+
+			/* 组件有自己的data数据
+			与实例中的data 不一样，实例中的data是一个对象
+			组件中的data是一个函数，并且必须返回一个对象才行
+			组件中的data使用方法与实例中的data使用方法一样 */
+			Vue.component('mycom1', {
+				template: '<h1>全局组件---{{ msg }}</h1>',
+				data: function() {
+					return {
+						msg: '组件中的data数据'
+					}
+				}
+			})
+
+
+			var vm = new Vue({
+				el: "#app",
+				data: {
+
+				},
+				methods: {
+
+				}
+			})
+		</script>
+	</body>
+</html>

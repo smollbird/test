@@ -1,0 +1,43 @@
+#page{
+    background-color: #bbb6b6;
+}
+#container{
+    margin: 0 10%;
+}
+#header{
+    height: 80px;
+    background: aqua;
+    margin-bottom: 10px;
+}
+.bar{
+    float: left;
+    height: 80px;
+    width: 80%;
+    background: brown;
+}
+.music{
+    height: 80px;
+    width: auto;
+    background: brown;
+}
+#main{
+    margin-bottom: 10px;
+    height: 600px;
+    background: coral;
+}
+.left{
+    float: left;
+    width: 15%;
+    height: 600px;
+    background: darkcyan;
+}
+.right{
+    float: left;
+    width: auto;
+    height: 600px;
+    background: darkmagenta;
+}
+#footer{
+    height: 100px;
+    background: darkslategray;
+}

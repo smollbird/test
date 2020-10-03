@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Ajax-6 封装Ajax</title>
+	<script src="ajax.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+	<form action="demo6.php">
+		<input type="text" name="name" id="name" value="" />
+		<input type="text" name="email" id="email" value="" />
+		<input type="submit" id="submit" value="提交" />
+	</form>
+	<div id="txt"></div>
+	<script type="text/javascript">
+		var name = document.getElementById("name")
+		var email = document.getElementById("email")
+		document.getElementById("submit").addEventListener("click", function (e) {
+			e.preventDefault()//取消默认行为
+			ajax({//调用ajax
+				url: "demo6.php",//请求路径
+				type: "get",//默认是get
+				data: {//给后台传递参数，对象类型
+					"name": name.value,
+					"email": email.value
+				},
+				timeour: 1000 * 60,//超时时间
+				success: function (data) {//请求成功的回调函数
+					var output = ""
+					for (var i = 0; i < data.length; i++) {
+						output +=
+							`
+								<ul>
+									<li>${data[i].id}</li>
+									<li>${data[i].name}</li>
+									<li>${data[i].email}</li>
+								</ul>
+							`
+					}
+					document.getElementById("txt").innerHTML = output
+				}
+			})
+		})
+	</script>
+</body>
+
+</html>

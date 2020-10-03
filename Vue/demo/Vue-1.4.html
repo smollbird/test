@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>动画</title>
+		<script type="text/javascript" src="./Vue-2.6.11.js"></script>
+		<!-- 2、自定义两组样式，来控制transition中的元素实现动画 -->
+		<style type="text/css">
+			/* v-enter （是一个时间点） 是进入之前元素的起始状态，此时还没有开始进入 
+			v-leave-to （时间点） 是动画离开之后，离开的终止状态，此时元素动画结束了 
+		*/
+			.v-enter,
+			.v-leave-to {
+				opacity: 0;
+				transform: translateX(200px);
+			}
+
+			/* 
+			v-enter-active [入场动画的时间段]
+			v-leave-active [离开动画的时间段]
+		 */
+			.v-enter-action,
+			.v-leave-action {
+				transition: all 0.8s ease;
+			}
+
+
+			.my-enter,
+			.my-leave-to {
+				opacity: 0;
+				transform: translateX(200px);
+			}
+
+			/* 
+						v-enter-active [入场动画的时间段]
+						v-leave-active [离开动画的时间段]
+			*/
+			.my-enter-active,
+			.my-leave-active {
+				transition: all 0.8s ease;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<!-- 通过按钮使得dom元素显示和隐藏 -->
+			<input type="button" value="toggle" @click="flag=!flag" />
+			<!-- 1、使用transition 标签 将需要被动画控制的元素包裹起来 -->
+			<!-- transition 是vue官方提供的 -->
+			<transition>
+				<h3 v-if="flag">this is a h3 !</h3>
+			</transition>
+			<!-- 在transition中加上name属性，则使用的类名前缀相应换上name中的字符串即可做到区分 -->
+			<input type="button" value="toggle" @click="flag2=!flag2" />
+			<transition name="my">
+				<h3 v-if="flag2">this is a h3 !</h3>
+			</transition>
+		</div>
+		<script type="text/javascript">
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					flag: false,
+					flag2: false
+				},
+				methods: {
+
+				}
+			})
+		</script>
+	</body>
+</html>

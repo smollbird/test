@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>ajax-5 与数据库交互 存，取数据</title>
+	</head>
+	<body>
+		<form action="demo5.php">
+			<label>用户名</label>
+			<input type="text" name="name" value="" />
+			<label>邮箱</label>
+			<input type="text" name="email" value="" />
+			<input type="submit" name="submit" id="sub" value="提交" />
+		</form>
+
+		<div id="txt"></div>
+		<script type="text/javascript">
+			window.onload = function() {
+				document.getElementById("sub").addEventListener("click", function(e) {
+					e.preventDefault()
+					var els = document.getElementsByTagName("input")
+					var params = "name=" + els[0].value + "&email=" + els[1].value
+					var xhr = new XMLHttpRequest()
+					// xhr.open("get", "demo5.php" + "?" + params, true)
+					// xhr.send(null)
+					xhr.open("post", "demo5.php", true)
+					xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded")
+					xhr.send(params)
+					xhr.onreadystatechange = function() {
+						if (xhr.status == 200 && xhr.readyState == 4) {
+							console.log(xhr.responseText)
+							var users = JSON.parse(xhr.responseText)
+							var output = ""
+							for (var i = 0; i < users.length; i++) {
+								output +=
+									`
+									<ul>
+										<li>${users[i].id}</li>
+										<li>${users[i].name}</li>
+										<li>${users[i].email}</li>
+									</ul>
+								`
+								document.getElementById("txt").innerHTML = output
+							}
+						}
+					}
+				})
+			}
+		</script>
+	</body>
+</html>

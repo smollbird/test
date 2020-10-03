@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Ajax-2 请求json文件数据</title>
+	</head>
+	<body>
+		<button id="btn" type="button">按钮</button>
+		<br><br>
+		<div id="txt"></div>
+		<script type="text/javascript">
+			window.onload = function() {
+				document.getElementById("btn").addEventListener("click", function() {
+					var xhr = new XMLHttpRequest()
+					xhr.open("get", "demo2.json", true)
+					xhr.send(null)
+					xhr.onreadystatechange = function() {
+						if (xhr.status == 200 && xhr.readyState == 4) {
+							var users = JSON.parse(xhr.responseText)
+							var output = ""
+							for (var i = 0; i < users.length; i++) {
+								output +=
+									`
+									<ul>
+										<li>${users[i].id}</li>
+										<li>${users[i].name}</li>
+										<li>${users[i].email}</li>
+									</ul>
+								`
+							}
+							document.getElementById("txt").innerHTML = output
+
+						}
+					}
+				})
+			}
+		</script>
+	</body>
+</html>

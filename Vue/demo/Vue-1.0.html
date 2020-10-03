@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>Vue-1 基本语法</title>
+		<script type="text/javascript" src="Vue-2.6.11.js"></script>
+		<link rel="stylesheet" type="text/css" href="../原生js/css/reset.css"/>
+		<style>
+			[v-cloak]{
+				display: none;
+			}
+			.inner{
+				height: 200px;
+				background-color: red;
+			}
+			.red{
+				color: red;
+			}
+			.font{
+				font-size: 300px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<div name="渲染数据">
+				<!-- 1、使用插值表达式渲染数据 -->
+				<!-- 使用v-clock，解决插值表达式闪烁的问题 -->
+				<p v-cloak>{{msg}}</p>
+				<!-- 2、使用 v-text 渲染数据-->
+				<p v-text="msg"></p>
+				<p v-html="msg2"></p>
+				<!-- {{}}} 和 v-text 的区别 -->
+				<!-- 
+					v-text会覆盖原本的内容
+					{{}}则不会 相当于一个占位符
+					v-html 可以把标签解析出来
+					v-text 和 {{}} 则不会解析 只会当作字符串形式显示
+				 -->
+			</div>
+			<div name="绑定属性">
+				<!-- v-bind: 是vue中，提供用于绑定属性的命令 可以写合法的js表达式-->
+				<!-- v-bind可以简写为  :要绑定的属性 例 :title="title" -->
+				<!-- v-bind:title="title" 双引号中表示变量 v-bind:title="title+'123'" -->
+				
+				<button type="button" v-bind:title="title" value="按钮">按钮</button>
+				
+				
+			</div>
+			<div name="绑定事件">
+				<!-- 使用v-on 用来绑定事件 -->
+				<!-- v-on 可以简写为  @  例 @click="show" -->
+				<button type="button" value="按钮" v-on:click="show">按钮</button>
+			</div>
+			<div name="事件修饰符" class="inner" @click.self="divhandle">
+				<!-- .stop 阻止所有元素的冒泡 -->
+				<input type="button" name="" id="" value="戳他" @click.stop="input" />
+				<!-- .prevent阻止默认行为 -->
+				<a href="www.baidu.com" @click.prevent.stop="linkto">百度</a>
+				<!-- .capture 捕获事件 -->
+				<input type="button" name="" id="" value="戳他" @click.capture="input" />
+				<!-- .self 只有点击本身才会触发事件处理函数 
+						只会阻止自己身上的冒泡行为，不会阻止其他元素上的冒泡
+						-->
+				<input type="button" name="" id="" value="戳他" @click="input" />
+				<!-- .once 只触发一次事件函数 -->
+				<a href="http://www.baidu.com" @click.prevent.once="linkto">百度</a>
+			</div>
+			<div name="双向数据绑定">
+				<!-- v-bind 只能实现单向绑定，从M到V  无法实现双向绑定 -->
+				<h4>{{msg}}</h4>
+				<input type="text" name="" id="" :value="msg" />
+				<!-- v-model 可以实现表单元素和Model中数据的双向数据绑定 -->
+				<!-- 只能用于表单元素中 -->
+				<input type="text" name="" id="" v-model="msg" />
+			</div>
+			
+		</div>
+		<script type="text/javascript">
+			var app = new Vue({
+				el: "#box",
+				data: {
+					msg: "hello",
+					msg2:"<h2>this is h2</h2>",
+					title:"title",
+					flag:true,
+					classobj:{font:flag,red:true}
+				},
+				methods: {
+					show:function(){
+						alert("hello")
+					},
+					divhandle(){
+						console.log("inner")
+					},
+					input(){
+						console.log("input")
+					},
+					linkto(){
+						console.log("linkto")
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

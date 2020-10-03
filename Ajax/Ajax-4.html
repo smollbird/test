@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>ajax-4 发送get/post请求</title>
+	</head>
+	<body>
+		<!-- <h2>传统请求方式 get</h2>
+		<form action="demo4.php" method="get">
+			<label>name</label>
+			<input type="text" name="name" id="name" value="" />
+			<input type="submit" name="submit" value="提交" />
+		</form>
+		<br><br>
+		<h2>传统请求方式 post</h2>
+		<form action="demo4.php" method="post">
+			<label>name</label>
+			<input type="text" name="name" id="name1" value="" />
+			<input type="submit" name="submit" value="提交" />
+		</form>
+		<br><br> -->
+		<h2>使用Ajax方式 get</h2>
+		<form id="app" action="demo4.php">
+			<label>name</label>
+			<input type="text" name="name" id="name2" value="" />
+			<input type="submit" name="submit" id="sub1" value="提交" />
+		</form>
+		<br>
+		<div id="txt1"></div>
+		<br><br>
+		<h2>使用Ajax方式 post</h2>
+		<form action="demo4.php">
+			<label>name</label>
+			<input type="text" name="name" id="name3" value="" />
+			<input type="submit" name="submit" id="sub2" value="提交" />
+		</form>
+		<br>
+		<div id="txt2"></div>
+		<br><br>
+
+		<script type="text/javascript">
+			window.onload = function() {
+				document.getElementById("sub1").addEventListener("click", function(e) {
+					e.preventDefault()
+					var name = document.getElementById("name2").value
+					var xhr = new XMLHttpRequest();
+					xhr.open("post", "demo4.php?name=" + name, true);
+					//setRequestHeader用于post请求修改发送请求头部
+					// xhr.setRequestHeader("content-type","application/x-www-form-urlencoded");
+					xhr.send(null);
+					xhr.onreadystatechange = function() {
+						if (xhr.status == 200 && xhr.readyState == 4) {
+							document.getElementById("txt1").innerHTML=xhr.responseText
+						}
+					}
+
+				})
+				document.getElementById("sub2").addEventListener("click",function(e){
+					e.preventDefault()
+					var name=document.getElementById("name3").value
+					var xhr=new XMLHttpRequest()
+					var params="name="+name
+					xhr.open("POST","demo4.php",true)
+					xhr.setRequestHeader("content-type","application/x-www-form-urlencoded")
+					xhr.send(params)
+					xhr.onreadystatechange = function() {
+						if (xhr.status == 200 && xhr.readyState == 4) {
+							document.getElementById("txt2").innerHTML=xhr.responseText
+						}
+					}
+				})
+			}
+			
+		</script>
+	</body>
+</html>

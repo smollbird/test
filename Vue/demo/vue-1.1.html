@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title></title>
+		<script type="text/javascript" src="./Vue-2.6.11.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<div name="vue中的样式">
+				<!-- 第一 直接传递一个一个数组，需要用：绑定一个class的属性 -->
+				<!-- 使用三元表达式 -->
+				<!-- <h1 :class="['red',flag?'font':'']">大大的h1</h1> -->
+				<!-- 使用对象来代替三元表达式 便于阅读 -->
+				<!-- <h1 :class="['red',{'font':flag} ]">大大的h1</h1> -->
+				<!-- 直接使用对象 当作属性的值，，对象的属性可以带引号，也可以不加引号 -->
+				<!-- <h1 :class="classobj">大大的h1</h1> -->
+			</div>
+			<div name="内联样式">
+				<!-- 对象就是无序键值对的集合 -->
+				<!-- 可以使用对象 -->
+				<h1 :style="{color:'red', 'font-weight':200}">this is a h1</h1>
+				<!-- 变量 -->
+				<h1 :style="styleObj">this is a h1</h1>
+				<!-- 多个样式，可以使用数组 -->
+				<h1 :style="[styleObj,styleObj2]">this is a h1</h1>
+			</div>
+			<div name="列表渲染">
+				<!-- <p v-for="item in list">{{item}}</p> -->
+				<!-- 普通数组 -->
+				<!-- <p v-for="(item,i) in list">值{{item}}索引值{{i}}</p> -->
+				<!-- 对象数组 -->
+				<!-- <p v-for="(user,i) in list1">id：{{user.id}}名字： {{user.name}} 索引值{{i}}</p> -->
+				<!-- 在遍历对象的键值对时，除了value key  还有第三个 索引值-->
+				<!-- <p v-for="(val,key,i) in user">val {{val}}---key {{key}} -- index {{i}}</p> -->
+				<!-- in 后面还可以放数字 -->
+				<!-- 如果使用v-for 迭代数字的时候开始是从1开始 -->
+				<!-- <p v-for="count in 10">这是第 {{count}} 次循环</p> -->
+				<!-- v-for中的key的使用 -->
+				<label>id:
+					<input type="text" name="" id="" v-model="id" />
+				</label>
+				<label>
+					name:
+					<input type="text" name="" id="" v-model="name" />
+				</label>
+				<input type="button" name="" id="" value="按钮" @click="add" />
+				<!-- v-for 循环的时候，key只能使用number获取string -->
+				<!-- key在使用的时候，必修使用v-bind 属性绑定 -->
+				<p v-for="item in list1" :key="item.id">
+					<input type="checkbox" name="" id="" value="" />
+					{{item.id}}---{{item.name}}
+				</p>
+			</div>
+
+		</div>
+		<script type="text/javascript">
+			var vm = new Vue({
+				el: "#app",
+				data: {
+					id: '',
+					name: '',
+					styleObj: {
+						color: 'red',
+						'font-weight': 200
+					},
+					styleObj2: {
+						'font-style': 'italic'
+					},
+					list: [1, 2, 3, 4, 5],
+					list1: [{
+							id: 1,
+							name: "aa"
+						},
+						{
+							id: 2,
+							name: "bb"
+						},
+						{
+							id: 3,
+							name: "cc"
+						}
+					],
+					user: {
+						id: 1,
+						name: 'dd',
+						sex: 'M'
+					},
+
+				},
+				methods: {
+					add() {
+						// this.list.push({
+						this.list1.unshift({
+							id: this.id,
+							name: this.name
+						})
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
